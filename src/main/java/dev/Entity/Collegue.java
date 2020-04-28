@@ -5,27 +5,37 @@ package dev.Entity;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * @author boukh
  *
  */
 @Entity
+@Table(name="collegue")
 public class Collegue {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO) 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id")
 	long id;
 
+	@Column(name="matricule")
     private String matricule;
+	@Column(name="nom")
     private String nom;
+	@Column(name="prenoms")
     private String prenoms;
+	@Column(name="email")
     private String email;
+	@Column(name="date_de_naissance")
     private LocalDate DateDeNaissance;
+	@Column(name="photo_url")
     private String photoUrl;
 
 
