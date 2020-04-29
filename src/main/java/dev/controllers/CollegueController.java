@@ -66,6 +66,9 @@ public class CollegueController {
 	
 	@PostMapping
 	public ResponseEntity<?> postClient(@Valid @RequestBody Collegue collegue) {
+		
+        collegue.setMatricule(UUID.randomUUID().toString());
+		
 			collegueRepository.save(collegue);
 			return ResponseEntity.status(200).body(collegue);
 
