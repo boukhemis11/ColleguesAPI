@@ -4,7 +4,9 @@
 package dev.controllers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 import dev.Entity.Collegue;
 import dev.Entity.MessageErreur;
 import dev.Entity.Repository.CollegueRepository;
+import net.minidev.json.JSONObject;
 
 /**
  * @author boukh
@@ -98,17 +101,18 @@ public class CollegueController {
     }
 	
     @RequestMapping("/photos")
-	public List<String> getPhotoCol() {
-		
-		List<String> l = new ArrayList<>();
+	public HashMap<String, String> getPhotoCol() {
+	    HashMap<String, String> map = new HashMap<>();
 		
 		List<Collegue> collegues = collegueRepository.findAll();
 		
 		for(Collegue c:collegues) {
-			l.add(c.getPhotoUrl());
+
+		    map.put("matricule", c.getMatricule());
+		    map.put("photoUrl", c.getPhotoUrl());
 		}
 		
-		return l;
+		return map;
 	}
     
     @DeleteMapping("{matricule}")  
