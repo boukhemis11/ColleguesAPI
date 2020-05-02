@@ -13,6 +13,7 @@ import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -85,8 +86,6 @@ public class CollegueController {
     @PatchMapping("{matricule}")
     public ResponseEntity<Object> updateCollegue(@RequestBody @Valid Collegue collegue, @PathVariable String matricule) {
 		Optional<Collegue> optionalCol = collegueRepository.findByMatricule(matricule);
-        System.out.println(optionalCol);
-        System.out.println(matricule);
         if (optionalCol.isPresent()) {
             Collegue col = optionalCol.get();
                 col.setPhotoUrl(collegue.getPhotoUrl());
@@ -111,5 +110,12 @@ public class CollegueController {
 		
 		return l;
 	}
+    
+    @DeleteMapping("{matricule}")  
+    public void deleteCollegue(@PathVariable String matricule,Collegue collegue) {  
+		Optional<Collegue> optionalCol = collegueRepository.findByMatricule(matricule);
+		  Collegue col = optionalCol.get();
+        collegueRepository.delete(col);
+    }  
 	
 }
