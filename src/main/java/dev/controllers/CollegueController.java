@@ -44,7 +44,7 @@ public class CollegueController {
 	}
 	
 	@GetMapping(params = "nom")
-	public List<String> getClientNom(@RequestParam String nom) {
+	public List<String> getColleguetNom(@RequestParam String nom) {
 		
 		List<Collegue> collegues = collegueRepository.findByNom(nom);
 		
@@ -57,7 +57,7 @@ public class CollegueController {
 	}
 	
 	@GetMapping("{matricule}")
-	public Collegue getClientMat(@PathVariable String matricule) throws CollegueNotFoundException {
+	public Collegue getCollegueMat(@PathVariable String matricule) throws CollegueNotFoundException {
 		
 		Optional<Collegue> optionalCol = collegueRepository.findByMatricule(matricule);
 	return optionalCol.orElseThrow(() -> new CollegueNotFoundException("Collegue non trouvé"));
@@ -65,7 +65,7 @@ public class CollegueController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> postClient(@Valid @RequestBody Collegue collegue) {
+	public ResponseEntity<?> postCollegue(@Valid @RequestBody Collegue collegue) {
 		
         collegue.setMatricule(UUID.randomUUID().toString());
 		
@@ -75,7 +75,7 @@ public class CollegueController {
 	}
 	
 	@GetMapping
-	public List<Collegue> getClients() {
+	public List<Collegue> getCollegue() {
 		
 		List<Collegue> collegues = collegueRepository.findAll();
 		
@@ -83,7 +83,7 @@ public class CollegueController {
 	}
 	
     @PatchMapping("{matricule}")
-    public ResponseEntity<Object> updateClient(@RequestBody @Valid Collegue collegue, @PathVariable String matricule) {
+    public ResponseEntity<Object> updateCollegue(@RequestBody @Valid Collegue collegue, @PathVariable String matricule) {
 		Optional<Collegue> optionalCol = collegueRepository.findByMatricule(matricule);
         System.out.println(optionalCol);
         System.out.println(matricule);
@@ -98,5 +98,18 @@ public class CollegueController {
         }
     }
 	
+    @RequestMapping("/photos")
+	public List<String> getPhotoCol() {
+		
+		List<String> l = new ArrayList<>();
+		
+		List<Collegue> collegues = collegueRepository.findAll();
+		
+		for(Collegue c:collegues) {
+			l.add(c.getPhotoUrl());
+		}
+		
+		return l;
+	}
 	
 }
