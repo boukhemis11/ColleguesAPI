@@ -101,18 +101,22 @@ public class CollegueController {
     }
 	
     @RequestMapping("/photos")
-	public HashMap<String, String> getPhotoCol() {
-	    HashMap<String, String> map = new HashMap<>();
+	public ResponseEntity<Object> getPhotoCol() {
+        List<JSONObject> photos = new ArrayList<JSONObject>();
 		
 		List<Collegue> collegues = collegueRepository.findAll();
 		
 		for(Collegue c:collegues) {
+			
+	          JSONObject photo = new JSONObject();
 
-		    map.put("matricule", c.getMatricule());
-		    map.put("photoUrl", c.getPhotoUrl());
+	          photo.put("matricule", c.getMatricule());
+	          photo.put("photoUrl", c.getPhotoUrl());
+	          
+	          photos.add(photo);
 		}
 		
-		return map;
+		return new ResponseEntity<Object>(photos, HttpStatus.OK);
 	}
     
     @DeleteMapping("{matricule}")  
