@@ -84,12 +84,14 @@ public class CollegueController {
 	
     @PatchMapping("{matricule}")
     public ResponseEntity<Object> updateClient(@RequestBody @Valid Collegue collegue, @PathVariable String matricule) {
-        Optional<Collegue> collegueOpt = collegueRepository.findByMatricule(matricule);
-        if (collegueOpt.isPresent()) {
-            Collegue col = collegueOpt.get();
-                collegue.setPhotoUrl(collegue.getPhotoUrl());
-                collegue.setEmail(collegue.getEmail());
-            collegueRepository.save(collegue);
+		Optional<Collegue> optionalCol = collegueRepository.findByMatricule(matricule);
+        System.out.println(optionalCol);
+        System.out.println(matricule);
+        if (optionalCol.isPresent()) {
+            Collegue col = optionalCol.get();
+                col.setPhotoUrl(collegue.getPhotoUrl());
+                col.setEmail(collegue.getEmail());
+            collegueRepository.save(col);
             return ResponseEntity.status(200).body(collegue);
         } else {
             return ResponseEntity.status(404).body(new MessageErreur("Erreur : le collegueOpt a mettre a jour n'a pas ete trouve"));

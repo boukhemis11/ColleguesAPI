@@ -1,7 +1,7 @@
 /**
  * 
  */
-
+/*
 package dev;
 
 import com.zaxxer.hikari.*;
@@ -22,3 +22,4 @@ public class DatabaseConfig {
       return new HikariDataSource(config);
   }
 }
+*/
